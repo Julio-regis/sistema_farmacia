@@ -44,4 +44,5 @@ Exemplo de JSON:
 ## 👨‍💻 Autor
 
 Julio Regis
+/
 Giuli Eduardo
