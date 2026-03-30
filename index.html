@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estoque Já</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo-box">
+        <div class="logo-icon">💊</div>
+        <div>
+          <h2>Estoque Já</h2>
+          <p>Painel de controle</p>
+        </div>
+      </div>
+
+      <nav class="menu">
+        <a href="#cadastro">Cadastrar</a>
+        <a href="#venda">Vendas</a>
+        <a href="#atualizar">Atualizar</a>
+        <a href="#buscar">Buscar</a>
+        <a href="#medicamentos">Medicamentos</a>
+        <a href="#historico">Histórico</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topo">
+        <h1>Estoque Já</h1>
+        <p class="subtitulo">Sistema profissional de controle de medicamentos e vendas</p>
+      </header>
+
+      <div class="painel">
+        <section class="card" id="cadastro">
+          <h2>Cadastrar medicamento</h2>
+          <input type="text" id="nome" placeholder="Nome do medicamento">
+          <input type="number" id="preco" placeholder="Preço" step="0.01">
+          <input type="number" id="quantidade" placeholder="Quantidade">
+          <button class="btn-verde" onclick="cadastrar()">Cadastrar</button>
+        </section>
+
+        <section class="card" id="venda">
+          <h2>Venda de medicamento</h2>
+          <input type="number" id="idVenda" placeholder="ID do medicamento">
+          <input type="number" id="quantidadeVenda" placeholder="Quantidade vendida">
+          <button class="btn-amarelo" onclick="vender()">Realizar venda</button>
+        </section>
+
+        <section class="card" id="atualizar">
+          <h2>Atualizar medicamento</h2>
+          <input type="number" id="idAtualizar" placeholder="ID do medicamento">
+          <input type="text" id="nomeAtualizar" placeholder="Novo nome">
+          <input type="number" id="precoAtualizar" placeholder="Novo preço" step="0.01">
+          <input type="number" id="quantidadeAtualizar" placeholder="Nova quantidade">
+          <button class="btn-azul" onclick="atualizar()">Atualizar</button>
+        </section>
+
+        <section class="card" id="buscar">
+          <h2>Buscar medicamento</h2>
+          <input type="number" id="buscarId" placeholder="Digite o ID do medicamento">
+          <button class="btn-azul" onclick="buscarPorId()">Buscar</button>
+
+          <div id="resultadoBusca" class="resultado-busca"></div>
+        </section>
+
+        <section class="card card-full" id="medicamentos">
+          <div class="titulo-linha">
+            <h2>Medicamentos cadastrados</h2>
+            <button class="btn-azul" onclick="listar()">Atualizar lista</button>
+          </div>
+          <ul id="lista"></ul>
+        </section>
+
+        <section class="card card-full" id="historico">
+          <div class="titulo-linha">
+            <h2>Histórico de vendas</h2>
+            <button class="btn-azul" onclick="listarVendas()">Atualizar vendas</button>
+          </div>
+          <ul id="listaVendas"></ul>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
