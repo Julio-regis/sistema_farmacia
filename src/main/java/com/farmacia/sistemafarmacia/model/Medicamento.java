@@ -1,14 +1,14 @@
 package com.farmacia.sistemafarmacia.model;
 
-public class medicamento {
+public class Medicamento {
 
     private Long id;
     private String nome;
     private Double preco;
 
-    public medicamento() {}
+    public Medicamento() {}
 
-    public medicamento(Long id, String nome, Double preco) {
+    public Medicamento(Long id, String nome, Double preco) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
