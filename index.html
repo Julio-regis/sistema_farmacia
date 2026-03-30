@@ -1,3 +1,967 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estoque Farma Pro</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #dc2626;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #eef4ff 0%, #f7f9fc 35%, #f4f7fb 100%);
+      color: var(--text);
+    }
+
+    .sidebar {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #0f172a 0%, #172554 100%);
+      color: white;
+      padding: 24px 18px;
+      position: sticky;
+      top: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #3b82f6, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.35);
+    }
+
+    .brand h4 {
+      margin: 0;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .brand small {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .menu-title {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      margin: 22px 0 10px;
+      letter-spacing: .08em;
+    }
+
+    .menu-item {
+      display: block;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      transition: .2s;
+      font-weight: 500;
+    }
+
+    .menu-item:hover,
+    .menu-item.active {
+      background: rgba(255,255,255,0.12);
+      color: white;
+    }
+
+    .main {
+      padding: 28px;
+    }
+
+    .topbar {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 20px 22px;
+      margin-bottom: 24px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-weight: 800;
+    }
+
+    .topbar p {
+      margin: 4px 0 0;
+      color: var(--muted);
+    }
+
+    .card-pro {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      height: 100%;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: -8px;
+      margin-bottom: 18px;
+    }
+
+    .kpi {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.08);
+    }
+
+    .kpi h3 {
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin: 8px 0 4px;
+    }
+
+    .kpi p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .kpi-badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .badge-blue {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .badge-green {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .badge-orange {
+      background: #ffedd5;
+      color: #c2410c;
+    }
+
+    .badge-red {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .badge-yellow {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .form-control,
+    .form-select {
+      border-radius: 14px;
+      min-height: 46px;
+      border: 1px solid #dbe2ea;
+      box-shadow: none !important;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #93c5fd;
+    }
+
+    .btn {
+      border-radius: 14px;
+      min-height: 46px;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border: none;
+    }
+
+    .btn-success {
+      border: none;
+      background: linear-gradient(135deg, #16a34a, #15803d);
+    }
+
+    .btn-danger {
+      border: none;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    .table {
+      margin-bottom: 0;
+    }
+
+    .table thead th {
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table tbody tr {
+      vertical-align: middle;
+    }
+
+    .table tbody tr:hover {
+      background: #f8fbff;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .pill-ok {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .pill-low {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .pill-warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .pill-expired {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .total-box {
+      background: linear-gradient(135deg, #eff6ff, #ecfeff);
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .total-box small {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .total-box strong {
+      font-size: 1.6rem;
+      color: var(--primary-dark);
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: .88rem;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 991px) {
+      .sidebar {
+        min-height: auto;
+        position: static;
+        border-radius: 0 0 22px 22px;
+      }
+
+      .main {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid p-0">
+    <div class="row g-0">
+      <div class="col-lg-2">
+        <aside class="sidebar">
+          <div class="brand">
+            <div class="brand-logo">💊</div>
+            <div>
+              <h4>Estoque Farma</h4>
+              <small>Painel profissional</small>
+            </div>
+          </div>
+
+          <div class="menu-title">Navegação</div>
+          <a href="#dashboard" class="menu-item active">Dashboard</a>
+          <a href="#cadastro" class="menu-item">Cadastro</a>
+          <a href="#venda" class="menu-item">Vendas</a>
+          <a href="#estoque" class="menu-item">Estoque</a>
+          <a href="#vencimentos" class="menu-item">Vencimentos</a>
+
+          <div class="menu-title">Resumo</div>
+          <a class="menu-item" href="javascript:void(0)">Controle em tempo real</a>
+          <a class="menu-item" href="javascript:void(0)">Busca rápida</a>
+          <a class="menu-item" href="javascript:void(0)">Baixa automática</a>
+        </aside>
+      </div>
+
+      <div class="col-lg-10">
+        <main class="main">
+          <div class="topbar" id="dashboard">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+              <div>
+                <h2>Gestão da Farmácia</h2>
+                <p>Controle de medicamentos, estoque, vendas e vencimentos.</p>
+              </div>
+              <div>
+                <button class="btn btn-primary px-4" onclick="listar()">Atualizar sistema</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <div class="col-md-6 col-xl-3">
+              <div class="card-pro kpi">
+                <span class="kpi-badge badge-blue">Total de itens</span>
+                <h3 id="kpiMedicamentos">0</h3>
+                <p>medicamentos cadastrados</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <div class="card-pro kpi">
+                <span class="kpi-badge badge-green">Valor estimado</span>
+                <h3 id="kpiValor">R$ 0,00</h3>
+                <p>valor total em estoque</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <div class="card-pro kpi">
+                <span class="kpi-badge badge-orange">Estoque baixo</span>
+                <h3 id="kpiBaixo">0</h3>
+                <p>produtos com alerta</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <div class="card-pro kpi">
+                <span class="kpi-badge badge-red">Vendas hoje</span>
+                <h3 id="kpiVendas">0</h3>
+                <p>itens vendidos na sessão</p>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+              <div class="card-pro kpi">
+                <span class="kpi-badge badge-yellow">Perto de vencer</span>
+                <h3 id="kpiVencendo">0</h3>
+                <p>medicamentos em até 30 dias</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-xl-4" id="cadastro">
+              <div class="card-pro">
+                <div class="card-title">Cadastrar medicamento</div>
+                <div class="section-subtitle">Adicione novos produtos ao estoque.</div>
+
+                <div class="mb-3">
+                  <label class="form-label">Nome</label>
+                  <input type="text" id="nome" class="form-control" placeholder="Ex: Dipirona 500mg">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Preço</label>
+                  <input type="number" id="preco" class="form-control" placeholder="Ex: 12.50" step="0.01">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Quantidade</label>
+                  <input type="number" id="quantidade" class="form-control" placeholder="Ex: 20">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Validade</label>
+                  <input type="date" id="validade" class="form-control">
+                </div>
+
+                <button class="btn btn-success w-100" onclick="cadastrar()">Cadastrar medicamento</button>
+              </div>
+            </div>
+
+            <div class="col-xl-4" id="venda">
+              <div class="card-pro">
+                <div class="card-title">Realizar venda</div>
+                <div class="section-subtitle">Selecione o produto e informe a quantidade.</div>
+
+                <div class="mb-3">
+                  <label class="form-label">Medicamento</label>
+                  <select id="medicamentoVenda" class="form-select"></select>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Quantidade</label>
+                  <input type="number" id="quantidadeVenda" class="form-control" min="1" placeholder="Ex: 2">
+                </div>
+
+                <div class="total-box mb-3">
+                  <small>Total da venda</small>
+                  <strong id="totalVenda">R$ 0,00</strong>
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button class="btn btn-primary" onclick="calcularVenda()">Calcular valor</button>
+                  <button class="btn btn-danger" onclick="vender()">Finalizar venda</button>
+                </div>
+
+                <div class="footer-note">
+                  A quantidade vendida será baixada automaticamente do estoque.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4">
+              <div class="card-pro">
+                <div class="card-title">Busca rápida</div>
+                <div class="section-subtitle">Filtre produtos pelo nome em tempo real.</div>
+
+                <div class="mb-3">
+                  <label class="form-label">Buscar medicamento</label>
+                  <input type="text" id="busca" class="form-control" placeholder="Digite o nome do medicamento">
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button class="btn btn-primary" onclick="buscar()">Buscar</button>
+                  <button class="btn btn-outline-secondary" onclick="limparBusca()">Limpar busca</button>
+                </div>
+
+                <hr>
+
+                <div class="card-title mb-2">Alertas</div>
+                <div id="alertasEstoque" class="small text-muted">
+                  Nenhum alerta carregado.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12" id="estoque">
+              <div class="card-pro">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
+                  <div>
+                    <div class="card-title mb-1">Estoque de medicamentos</div>
+                    <div class="section-subtitle mb-0">Visualização organizada dos produtos cadastrados.</div>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary" onclick="listar()">Atualizar</button>
+                  </div>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Medicamento</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Validade</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tabelaEstoque"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12" id="vencimentos">
+              <div class="card-pro">
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
+                  <div>
+                    <div class="card-title mb-1">Medicamentos perto de vencer</div>
+                    <div class="section-subtitle mb-0">Produtos vencidos ou com validade próxima.</div>
+                  </div>
+                </div>
+
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Medicamento</th>
+                        <th>Quantidade</th>
+                        <th>Validade</th>
+                        <th>Dias restantes</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tabelaVencimentos"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost:8080/medicamentos";
+    let medicamentosCache = [];
+    let vendasHoje = 0;
+
+    function formatarMoeda(valor) {
+      return Number(valor || 0).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function formatarData(data) {
+      if (!data) return "-";
+      const partes = data.split("-");
+      if (partes.length !== 3) return data;
+      return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    }
+
+    function limparCamposCadastro() {
+      document.getElementById("nome").value = "";
+      document.getElementById("preco").value = "";
+      document.getElementById("quantidade").value = "";
+      document.getElementById("validade").value = "";
+    }
+
+    function calcularDiasParaVencer(validade) {
+      if (!validade) return null;
+
+      const hoje = new Date();
+      hoje.setHours(0, 0, 0, 0);
+
+      const dataValidade = new Date(validade + "T00:00:00");
+      dataValidade.setHours(0, 0, 0, 0);
+
+      const diferencaMs = dataValidade - hoje;
+      return Math.ceil(diferencaMs / (1000 * 60 * 60 * 24));
+    }
+
+    function atualizarKPIs() {
+      const totalMedicamentos = medicamentosCache.length;
+      const valorEstoque = medicamentosCache.reduce((total, item) => {
+        return total + (Number(item.preco || 0) * Number(item.quantidade || 0));
+      }, 0);
+
+      const estoqueBaixo = medicamentosCache.filter(item => Number(item.quantidade || 0) <= 5).length;
+
+      document.getElementById("kpiMedicamentos").textContent = totalMedicamentos;
+      document.getElementById("kpiValor").textContent = formatarMoeda(valorEstoque);
+      document.getElementById("kpiBaixo").textContent = estoqueBaixo;
+      document.getElementById("kpiVendas").textContent = vendasHoje;
+    }
+
+    function atualizarKpiVencimento() {
+      const vencendo = medicamentosCache.filter(item => {
+        if (!item.validade) return false;
+        const dias = calcularDiasParaVencer(item.validade);
+        return dias >= 0 && dias <= 30;
+      }).length;
+
+      document.getElementById("kpiVencendo").textContent = vencendo;
+    }
+
+    function atualizarAlertas() {
+      const area = document.getElementById("alertasEstoque");
+
+      const baixos = medicamentosCache.filter(item => Number(item.quantidade || 0) <= 5);
+      const vencendo = medicamentosCache.filter(item => {
+        if (!item.validade) return false;
+        const dias = calcularDiasParaVencer(item.validade);
+        return dias >= 0 && dias <= 30;
+      });
+
+      let html = "";
+
+      if (baixos.length > 0) {
+        html += baixos.map(item => {
+          return `<div class="mb-2">⚠ <strong>${item.nome}</strong> com apenas ${item.quantidade} unidade(s).</div>`;
+        }).join("");
+      }
+
+      if (vencendo.length > 0) {
+        html += vencendo.map(item => {
+          const dias = calcularDiasParaVencer(item.validade);
+          return `<div class="mb-2">⏳ <strong>${item.nome}</strong> vence em ${dias} dia(s).</div>`;
+        }).join("");
+      }
+
+      if (!html) {
+        html = '<div class="text-success">Tudo certo. Nenhum alerta importante no momento.</div>';
+      }
+
+      area.innerHTML = html;
+    }
+
+    function preencherSelectVenda(lista) {
+      const select = document.getElementById("medicamentoVenda");
+      select.innerHTML = "";
+
+      if (!lista.length) {
+        select.innerHTML = `<option value="">Nenhum medicamento disponível</option>`;
+        return;
+      }
+
+      lista.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = `${item.nome} | ${formatarMoeda(item.preco)} | Estoque: ${item.quantidade}`;
+        option.dataset.preco = item.preco;
+        option.dataset.quantidade = item.quantidade;
+        option.dataset.validade = item.validade || "";
+        select.appendChild(option);
+      });
+    }
+
+    function renderizarTabela(lista) {
+      const tabela = document.getElementById("tabelaEstoque");
+      tabela.innerHTML = "";
+
+      if (!lista.length) {
+        tabela.innerHTML = `
+          <tr>
+            <td colspan="7" class="text-center text-muted py-4">Nenhum medicamento encontrado.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      lista.forEach(item => {
+        const status = Number(item.quantidade || 0) <= 5
+          ? `<span class="pill pill-low">Estoque baixo</span>`
+          : `<span class="pill pill-ok">Estoque normal</span>`;
+
+        const linha = document.createElement("tr");
+        linha.innerHTML = `
+          <td>${item.id}</td>
+          <td><strong>${item.nome}</strong></td>
+          <td>${formatarMoeda(item.preco)}</td>
+          <td>${item.quantidade}</td>
+          <td>${formatarData(item.validade)}</td>
+          <td>${status}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger" onclick="deletar(${item.id})">Excluir</button>
+          </td>
+        `;
+        tabela.appendChild(linha);
+      });
+    }
+
+    function obterMedicamentosPertoDeVencer() {
+      return medicamentosCache.filter(item => {
+        if (!item.validade) return false;
+        const dias = calcularDiasParaVencer(item.validade);
+        return dias <= 30;
+      });
+    }
+
+    function renderizarTabelaVencimentos() {
+      const tabela = document.getElementById("tabelaVencimentos");
+      tabela.innerHTML = "";
+
+      const lista = obterMedicamentosPertoDeVencer();
+
+      if (!lista.length) {
+        tabela.innerHTML = `
+          <tr>
+            <td colspan="6" class="text-center text-muted py-4">
+              Nenhum medicamento perto de vencer.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      lista.sort((a, b) => {
+        const diasA = calcularDiasParaVencer(a.validade);
+        const diasB = calcularDiasParaVencer(b.validade);
+        return diasA - diasB;
+      });
+
+      lista.forEach(item => {
+        const dias = calcularDiasParaVencer(item.validade);
+
+        let status = "";
+        if (dias < 0) {
+          status = `<span class="pill pill-expired">Vencido</span>`;
+        } else if (dias <= 7) {
+          status = `<span class="pill pill-low">Vence muito em breve</span>`;
+        } else {
+          status = `<span class="pill pill-warning">Perto de vencer</span>`;
+        }
+
+        const linha = document.createElement("tr");
+        linha.innerHTML = `
+          <td>${item.id}</td>
+          <td><strong>${item.nome}</strong></td>
+          <td>${item.quantidade}</td>
+          <td>${formatarData(item.validade)}</td>
+          <td>${dias < 0 ? "Venceu há " + Math.abs(dias) + " dia(s)" : dias + " dia(s)"}</td>
+          <td>${status}</td>
+        `;
+        tabela.appendChild(linha);
+      });
+    }
+
+    function listar() {
+      fetch(API_URL)
+        .then(res => {
+          if (!res.ok) {
+            throw new Error("Não foi possível listar os medicamentos.");
+          }
+          return res.json();
+        })
+        .then(data => {
+          medicamentosCache = data;
+          renderizarTabela(medicamentosCache);
+          preencherSelectVenda(medicamentosCache);
+          atualizarKPIs();
+          atualizarKpiVencimento();
+          atualizarAlertas();
+          renderizarTabelaVencimentos();
+          calcularVenda();
+        })
+        .catch(error => {
+          alert("Erro ao listar: " + error.message);
+        });
+    }
+
+    function cadastrar() {
+      const nome = document.getElementById("nome").value.trim();
+      const preco = parseFloat(document.getElementById("preco").value);
+      const quantidade = parseInt(document.getElementById("quantidade").value);
+      const validade = document.getElementById("validade").value;
+
+      if (!nome || isNaN(preco) || isNaN(quantidade) || !validade) {
+        alert("Preencha nome, preço, quantidade e validade corretamente.");
+        return;
+      }
+
+      fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome: nome,
+          preco: preco,
+          quantidade: quantidade,
+          validade: validade
+        })
+      })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Erro ao cadastrar medicamento.");
+        }
+        return res.json().catch(() => ({}));
+      })
+      .then(() => {
+        limparCamposCadastro();
+        listar();
+        alert("Medicamento cadastrado com sucesso.");
+      })
+      .catch(error => {
+        alert("Erro ao cadastrar: " + error.message);
+      });
+    }
+
+    function deletar(id) {
+      if (!confirm("Deseja realmente excluir este medicamento?")) {
+        return;
+      }
+
+      fetch(`${API_URL}/${id}`, {
+        method: "DELETE"
+      })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Erro ao excluir medicamento.");
+        }
+        listar();
+      })
+      .catch(error => {
+        alert("Erro ao excluir: " + error.message);
+      });
+    }
+
+    function buscar() {
+      const texto = document.getElementById("busca").value.trim().toLowerCase();
+
+      if (!texto) {
+        renderizarTabela(medicamentosCache);
+        return;
+      }
+
+      const filtrados = medicamentosCache.filter(item =>
+        item.nome && item.nome.toLowerCase().includes(texto)
+      );
+
+      renderizarTabela(filtrados);
+    }
+
+    function limparBusca() {
+      document.getElementById("busca").value = "";
+      renderizarTabela(medicamentosCache);
+    }
+
+    function calcularVenda() {
+      const select = document.getElementById("medicamentoVenda");
+      const quantidadeVenda = parseInt(document.getElementById("quantidadeVenda").value);
+      const totalVenda = document.getElementById("totalVenda");
+
+      if (!select.value || isNaN(quantidadeVenda) || quantidadeVenda <= 0) {
+        totalVenda.textContent = "R$ 0,00";
+        return;
+      }
+
+      const option = select.options[select.selectedIndex];
+      const preco = Number(option.dataset.preco || 0);
+      const total = preco * quantidadeVenda;
+
+      totalVenda.textContent = formatarMoeda(total);
+    }
+
+    function vender() {
+      const select = document.getElementById("medicamentoVenda");
+      const medicamentoId = parseInt(select.value);
+      const quantidadeVenda = parseInt(document.getElementById("quantidadeVenda").value);
+
+      if (!medicamentoId) {
+        alert("Selecione um medicamento.");
+        return;
+      }
+
+      if (isNaN(quantidadeVenda) || quantidadeVenda <= 0) {
+        alert("Digite uma quantidade válida.");
+        return;
+      }
+
+      const medicamento = medicamentosCache.find(item => item.id === medicamentoId);
+
+      if (!medicamento) {
+        alert("Medicamento não encontrado.");
+        return;
+      }
+
+      const diasParaVencer = calcularDiasParaVencer(medicamento.validade);
+
+      if (diasParaVencer !== null && diasParaVencer < 0) {
+        alert("Não é permitido vender medicamento vencido.");
+        return;
+      }
+
+      if (quantidadeVenda > Number(medicamento.quantidade)) {
+        alert("Estoque insuficiente para realizar a venda.");
+        return;
+      }
+
+      const novaQuantidade = Number(medicamento.quantidade) - quantidadeVenda;
+
+      fetch(`${API_URL}/${medicamentoId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: medicamento.id,
+          nome: medicamento.nome,
+          preco: medicamento.preco,
+          quantidade: novaQuantidade,
+          validade: medicamento.validade
+        })
+      })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Erro ao finalizar venda.");
+        }
+        return res.json().catch(() => ({}));
+      })
+      .then(() => {
+        vendasHoje += quantidadeVenda;
+        document.getElementById("quantidadeVenda").value = "";
+        document.getElementById("totalVenda").textContent = "R$ 0,00";
+        listar();
+        alert("Venda realizada com sucesso.");
+      })
+      .catch(error => {
+        alert("Erro na venda: " + error.message);
+      });
+    }
+
+    document.getElementById("busca").addEventListener("input", buscar);
+    document.getElementById("medicamentoVenda").addEventListener("change", calcularVenda);
+    document.getElementById("quantidadeVenda").addEventListener("input", calcularVenda);
+
+    listar();
+  </script>
+</body>
+=======
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -87,4 +1051,5 @@
 
   <script src="script.js"></script>
 </body>
+>>>>>>> b57c0ca189943bb9f435de9de806847d3a17c705
 </html>
