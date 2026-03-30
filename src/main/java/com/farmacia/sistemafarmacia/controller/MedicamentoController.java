@@ -1,25 +1,20 @@
 package com.farmacia.sistemafarmacia.controller;
 
 import com.farmacia.sistemafarmacia.model.Medicamento;
-import com.farmacia.sistemafarmacia.model.Venda;
 import com.farmacia.sistemafarmacia.repository.MedicamentoRepository;
-import com.farmacia.sistemafarmacia.repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/medicamentos")
-@CrossOrigin(origins = "*")
 public class MedicamentoController {
 
     @Autowired
     private MedicamentoRepository repository;
-
-    @Autowired
-    private VendaRepository vendaRepository;
 
     @GetMapping
     public List<Medicamento> listar() {
@@ -27,7 +22,7 @@ public class MedicamentoController {
     }
 
     @GetMapping("/{id}")
-    public Medicamento buscarPorId(@PathVariable Long id) {
+    public Medicamento buscar(@PathVariable Long id) {
         return repository.findById(id).orElse(null);
     }
 
@@ -37,9 +32,14 @@ public class MedicamentoController {
     }
 
     @PutMapping("/{id}")
-    public Medicamento atualizar(@PathVariable Long id, @RequestBody Medicamento medicamento) {
-        medicamento.setId(id);
-        return repository.save(medicamento);
+    public Medicamento atualizar(@PathVariable Long id, @RequestBody Medicamento novo) {
+        return repository.findById(id).map(m -> {
+            m.setNome(novo.getNome());
+            m.setPreco(novo.getPreco());
+            m.setQuantidade(novo.getQuantidade());
+            m.setValidade(novo.getValidade());
+            return repository.save(m);
+        }).orElse(null);
     }
 
     @DeleteMapping("/{id}")
@@ -47,30 +47,32 @@ public class MedicamentoController {
         repository.deleteById(id);
     }
 
-    @PostMapping("/{id}/vender/{quantidade}")
-    public String vender(@PathVariable Long id, @PathVariable Integer quantidade) {
-        Medicamento medicamento = repository.findById(id).orElse(null);
+    @PutMapping("/{id}/baixar-estoque")
+    public Medicamento baixarEstoque(@PathVariable Long id,
+                                     @RequestBody Map<String, Integer> body) {
 
-        if (medicamento == null) {
-            return "Medicamento não encontrado";
+        Integer quantidadeVendida = body.get("quantidade");
+
+        if (quantidadeVendida == null || quantidadeVendida <= 0) {
+            throw new RuntimeException("Quantidade inválida.");
         }
 
-        if (medicamento.getQuantidade() < quantidade) {
-            return "Estoque insuficiente";
-        }
+        return repository.findById(id).map(medicamento -> {
 
-        medicamento.setQuantidade(medicamento.getQuantidade() - quantidade);
-        repository.save(medicamento);
+            if (medicamento.getQuantidade() == null) {
+                throw new RuntimeException("Produto sem estoque cadastrado.");
+            }
 
-        Venda venda = new Venda();
-        venda.setNomeMedicamento(medicamento.getNome());
-        venda.setQuantidadeVendida(quantidade);
-        venda.setPrecoUnitario(medicamento.getPreco());
-        venda.setValorTotal(medicamento.getPreco() * quantidade);
-        venda.setDataVenda(LocalDateTime.now());
+            if (medicamento.getQuantidade() < quantidadeVendida) {
+                throw new RuntimeException("Estoque insuficiente.");
+            }
 
-        vendaRepository.save(venda);
+            medicamento.setQuantidade(
+                    medicamento.getQuantidade() - quantidadeVendida
+            );
 
-        return "Venda realizada com sucesso";
+            return repository.save(medicamento);
+
+        }).orElseThrow(() -> new RuntimeException("Medicamento não encontrado."));
     }
 }

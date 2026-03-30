@@ -12,13 +12,20 @@ public class Medicamento {
     private String nome;
     private Double preco;
     private Integer quantidade;
+    private String validade;
+
+    public Medicamento() {
+    }
+
+    public Medicamento(String nome, Double preco, Integer quantidade, String validade) {
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.validade = validade;
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -43,5 +50,13 @@ public class Medicamento {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public String getValidade() {
+        return validade;
+    }
+
+    public void setValidade(String validade) {
+        this.validade = validade;
     }
 }
